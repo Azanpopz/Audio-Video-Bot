@@ -8,7 +8,6 @@ wget
 
 
 
-tgcrypto
-requests
-ytthumb
-youtube-search-python
+py-youtube
+TgCrypto
+Pyrogram
