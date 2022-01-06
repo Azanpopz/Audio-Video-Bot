@@ -12,6 +12,10 @@
 
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+from __future__ import unicode_literals
+
+
 import os
 import asyncio
 from urllib.parse import urlparse
