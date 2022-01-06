@@ -27,3 +27,6 @@ pymongo
 lyricsgenius
 wget
 yt_dlp
+yt_dlp
+audio_file
+ytmusic
