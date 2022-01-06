@@ -5,3 +5,10 @@ TgCrypto
 ffmpeg-python
 youtube-dl
 wget
+
+
+
+tgcrypto
+requests
+ytthumb
+youtube-search-python
