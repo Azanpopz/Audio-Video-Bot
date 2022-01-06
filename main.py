@@ -23,14 +23,7 @@ from opencc import OpenCC
 from config import Config
 import wget
 
-import os
-import ytthumb
-import requests
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InlineQueryResultPhoto
-from youtubesearchpython import VideosSearch
 
-from config import Config
 
 
 from pyrogram import Client ,filters
