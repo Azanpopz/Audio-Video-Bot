@@ -125,10 +125,10 @@ async def about(client, message):
 
 # https://docs.pyrogram.org/start/examples/bot_keyboards
 # Reply with inline keyboard
-
-@ZauteKm.on_message(filters.regex(r"^((?:https?:)?\/\/") & filters.private & filters.command(["ytthumb"]))
-
-
+@ZauteKm.on_message(filters.private
+                   & filters.text
+                   & ~filters.edited
+                   & filters.regex(YTDL_REGEX))
 async def ytdl_with_button(c: Client, message: Message):
     if Config.UPDATES_CHANNEL is not None:
         try:
