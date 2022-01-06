@@ -270,7 +270,7 @@ def time_to_seconds(times):
 
 
 
-@Bot.on_message(filters.command("lyrics"))
+@ZauteKm.on_message(filters.command("lyrics"))
 async def lrsearch(_, message: Message):  
     m = await message.reply_text("Searching Lyrics")
     query = message.text.split(None, 1)[1]
