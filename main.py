@@ -33,6 +33,18 @@ from youtubesearchpython import VideosSearch
 from config import Config
 
 
+from pyrogram import Client ,filters
+import os
+from py_youtube import Data, Search 
+from pyrogram.types import *
+
+BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
+
+APP_ID = int(os.environ.get("APP_ID", ""))
+
+API_HASH = os.environ.get("API_HASH", "")
+
+
 
 
 
@@ -393,65 +405,37 @@ async def button(bot, update):
 
 
 
-@ZauteKm.on_message(filters.private & filters.all)
-async def text(bot, update):
-    
-    text = "Search youtube videos using below buttons.\n\nMade by @FayasNoushad"
-    reply_markup = InlineKeyboardMarkup(
-        [
-            [InlineKeyboardButton(text="Search here", switch_inline_query_current_chat="")],
-            [InlineKeyboardButton(text="Search in another chat", switch_inline_query="")]
-        ]
-    )
-    
-    await update.reply_text(
-        text=text,
-        reply_markup=reply_markup,
-        disable_web_page_preview=True,
-        quote=True
-    )
+
+
 
 
 @ZauteKm.on_inline_query()
-async def search(bot, update):
-    
-    results = VideosSearch(update.query, limit=50).result()
-    answers = []
-    
-    for result in results:
-        title = result["title"]
-        views_short = result["viewCount"]["short"]
-        duration = result["duration"]
-        duration_text = result["accessibility"]["duration"]
-        views = result["viewCount"]["text"]
-        publishedtime = result["publishedTime"]
-        channel_name = result["channel"]["name"]
-        channel_link = result["channel"]["link"]
-        description = f"{views_short} | {duration}"
-        details = f"**Title:** {title}" + "\n" \
-        f"**Channel:** [{channel_name}]({channel_link})" + "\n" \
-        f"**Duration:** {duration_text}" + "\n" \
-        f"**Views:** {views}" + "\n" \
-        f"**Published Time:** {publishedtime}" + "\n" \
-        "\n" + "**Made by @FayasNoushad**"
-        thumbnail = ytthumb.thumbnail(result["id"])
-        reply_markup = InlineKeyboardMarkup(
-            [[InlineKeyboardButton(text="Watch Video 📹", url=result["link"])]]
-        )
-        try:
-            answers.append(
+async def search_video(client,query):
+	search = []
+	result = Search(query.query.strip()).videos()
+	for i in result:
+		try:
+			title = i["title"]
+			id = i["id"]
+			thumb = i["thumb"][0]
+			data = i["simple_data"]
+		except:
+			pass
+		try:
+			search.append(
                 InlineQueryResultPhoto(
                     title=title,
-                    description=description,
-                    caption=details,
-                    photo_url=thumbnail,
-                    reply_markup=reply_markup
-                )
-            )
-        except:
-            pass
-    
-    await update.answer(answers)
+                    description=data,
+                    caption="https://youtu.be/"+id,
+                    photo_url=thumb))
+		
+		except:
+		          pass
+            
+	await query.answer(search)
+	
+
+
 
 
 
